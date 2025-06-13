@@ -20,5 +20,5 @@ RUN mkdir -p /app/logs
 RUN mkdir -p /app/allure-results && chmod -R 777 /app/allure-results
 
 # Запуск тестов
-ENTRYPOINT ["python", "-m", "pytest"]
-CMD []
+ENTRYPOINT ["sh", "-c"]
+CMD ["python -m pytest"]

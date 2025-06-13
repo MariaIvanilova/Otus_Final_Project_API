@@ -10,9 +10,8 @@ def create_logger():
     console_handler.setLevel(logging.DEBUG)
 
     # Создаем обработчик для записи логов в файл
-    file_handler = logging.FileHandler("logs/log.log", mode='w')
+    file_handler = logging.FileHandler("logs/log.log", mode="w")
     file_handler.setLevel(logging.DEBUG)
-
 
     # Форматирование логов
     formatter = logging.Formatter(

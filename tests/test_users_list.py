@@ -5,14 +5,14 @@ from reqres_api import ReqresApi
 reqres_api = ReqresApi("https://reqres.in", "reqres-free-v1")
 
 
-@allure.title("Проверка статус-кода (200 OK)")
+@allure.title("GET. Проверка статус-кода (200 OK)")
 def test_get_users_list_status():
     response = reqres_api.get_list_users(1)
     assert response.status_code == 200
 
 
 @allure.title(
-    "Проверка структуры ответа на запрос: /api/users?page=1"
+    "GET. Проверка структуры ответа на запрос: /api/users?page=1"
     "JSON с полями page, per_page, total, total_pages, data"
 )
 def test_get_users_list_structure():
@@ -26,7 +26,7 @@ def test_get_users_list_structure():
     assert "data" in data and isinstance(data["data"], list)
 
 
-@allure.title("Проверка пагинации.Ключ 'page' содержит корректное значение")
+@allure.title("GET. Проверка пагинации. Ключ 'page' содержит корректное значение")
 @pytest.mark.parametrize("page_num", [1, 2, 10])
 def test_pagination_works(page_num):
     response = reqres_api.get_list_users(page_num)
@@ -34,7 +34,7 @@ def test_pagination_works(page_num):
     assert data["page"] == page_num
 
 
-@allure.title("Проверка пустой страницы. Возврат пустой data")
+@allure.title("GET. Проверка пустой страницы. Возврат пустой data")
 def test_empty_page_returns_empty_data():
     response = reqres_api.get_list_users(1)
     data = response.json()
@@ -47,7 +47,7 @@ def test_empty_page_returns_empty_data():
 
 
 @allure.title(
-    "Проверка структуры данных пользователя:"
+    "GET. Проверка структуры данных пользователя:"
     " data должен содержать обязательные поля (id, email, first_name, last_name, avatar"
 )
 def test_user_data_structure():
@@ -60,7 +60,7 @@ def test_user_data_structure():
 
 
 @allure.title(
-    "Негативный тест. Параметр page содержит невалидное значение. Выводится page=1"
+    "GET. Негативный тест. Параметр page содержит невалидное значение. Выводится page=1"
 )
 @pytest.mark.parametrize("page_num", [0, -1, "test"])
 def test_get_users_list_negative(page_num):

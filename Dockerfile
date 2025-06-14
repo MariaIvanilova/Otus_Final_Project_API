@@ -14,6 +14,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Копируем код
 COPY . .
 
+ENV PYTHONPATH=/app
+
 RUN mkdir -p /app/logs
 
 # Установка прав для отчетов allure

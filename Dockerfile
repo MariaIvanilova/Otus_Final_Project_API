@@ -14,7 +14,6 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Копируем код
 COPY . .
 
-ENV PYTHONPATH=/app
 
 RUN mkdir -p /app/logs
 
@@ -23,5 +22,5 @@ RUN mkdir -p /app/allure-results && chmod -R 777 /app/allure-results
 
 # Запуск тестов
 
-ENTRYPOINT ["python", "-m", "pytest"]
+ENTRYPOINT ["python", "-m", "pytest", "./tests"]
 CMD ["-n", "1"]

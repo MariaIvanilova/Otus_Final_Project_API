@@ -1,5 +1,5 @@
 import requests
-from logger import logger
+from logger import logger_api
 import json
 
 
@@ -13,16 +13,16 @@ class BaseReq:
             response = requests.get(
                 f"{self.base_url}{url}", params=params, headers=headers
             )
-            logger.info(
+            logger_api.info(
                 "OK. URL: %s, Request: %s, Code: %d",
                 self.base_url + url,
                 response.request,
                 response.status_code,
             )
-            logger.debug("json: %s", response.json())
+            logger_api.debug("json: %s", response.json())
             return response
         except requests.exceptions.RequestException as e:
-            logger.error("Error. %s", str(e))
+            logger_api.error("Error. %s", str(e))
             return None
 
     def post_request(self, url="", headers=None, body=None):
@@ -30,35 +30,35 @@ class BaseReq:
             response = requests.post(
                 f"{self.base_url}{url}", headers=headers, data=json.dumps(body)
             )
-            logger.info(
+            logger_api.info(
                 "OK. URL: %s, Request: %s, Code: %d",
                 self.base_url + url,
                 response.request,
                 response.status_code,
             )
             try:
-                logger.debug("Response: %s", response.json())
+                logger_api.debug("Response: %s", response.json())
             except ValueError:
-                logger.debug("Response (non-JSON): %s", response.text)
+                logger_api.debug("Response (non-JSON): %s", response.text)
             return response
         except requests.exceptions.RequestException as e:
-            logger.error("Error. %s", str(e))
+            logger_api.error("Error. %s", str(e))
             return None
 
     def delete_request(self, url="", headers=None):
         try:
             response = requests.delete(f"{self.base_url}{url}", headers=headers)
-            logger.info(
+            logger_api.info(
                 "OK. URL: %s, Request: %s, Code: %d",
                 self.base_url + url,
                 response.request,
                 response.status_code,
             )
             try:
-                logger.debug("Response: %s", response.json())
+                logger_api.debug("Response: %s", response.json())
             except ValueError:
-                logger.debug("Response (non-JSON): %s", response.text)
+                logger_api.debug("Response (non-JSON): %s", response.text)
             return response
         except requests.exceptions.RequestException as e:
-            logger.error("Error. %s", str(e))
+            logger_api.error("Error. %s", str(e))
             return None

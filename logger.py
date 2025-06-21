@@ -1,13 +1,17 @@
 import logging
+import os
 
 
 def create_logger():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
+    # Создаем директорию для логов если её нет
+    os.makedirs("logs", exist_ok=True)
+
     # Создаем обработчик для вывода логов в консоль
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.DEBUG)
+    console_handler.setLevel(logging.INFO)
 
     # Создаем обработчик для записи логов в файл
     file_handler = logging.FileHandler("logs/log.log", mode="w")
@@ -27,4 +31,4 @@ def create_logger():
     return logger
 
 
-logger = create_logger()
+logger_api = create_logger()
